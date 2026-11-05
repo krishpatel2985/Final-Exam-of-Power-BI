@@ -6,15 +6,15 @@
 [![Power BI Desktop](https://img.shields.io/badge/Power_BI_Desktop-2026-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)](https://powerbi.microsoft.com/)
 [![Data Modeling](https://img.shields.io/badge/Architecture-Star_Schema-0078D4?style=for-the-badge&logo=microsoftexcel&logoColor=white)](https://learn.microsoft.com/en-us/power-bi/guidance/star-schema)
 [![DAX Modeling](https://img.shields.io/badge/DAX-Explicit_Measures-0554F2?style=for-the-badge&logo=microsoftexcel&logoColor=white)](https://learn.microsoft.com/en-us/dax/)
-[![Domain](https://img.shields.io/badge/Domain-K--12_Education_Analytics-12239e?style=for-the-badge&logo=target&logoColor=white)]()
-[![UI System](https://img.shields.io/badge/UI_System-Microsoft_Fluent_2-00C853?style=for-the-badge&logo=checkmarx&logoColor=white)]()
+[![Domain](https://img.shields.io/badge/Domain-K--12_Education_Analytics-00D2FF?style=for-the-badge&logo=target&logoColor=black)]()
+[![UI System](https://img.shields.io/badge/UI_System-Cyber_Dark_%26_Electric_Cyan-00D2FF?style=for-the-badge&logo=powerbi&logoColor=black)]()
 [![Status](https://img.shields.io/badge/Status-100%25_Completed-success?style=for-the-badge)]()
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)]()
 
 <br/>
 
 <p align="center">
-  <b>A production-grade, multi-page educational intelligence suite modeling 137,500 records across 4 relational tables. Engineered with a centralized Star Schema, explicit DAX KPIs, dynamic report page tooltips, bidirectional student drillthrough profiling, bookmark-driven state navigation, and an executive Royal Navy & Slate UI design system.</b>
+  <b>A production-grade, multi-page educational intelligence suite modeling 137,500 records across 4 relational tables. Engineered with a centralized Star Schema, explicit DAX KPIs, dynamic report page tooltips, bidirectional student drillthrough profiling with radial gauge analytics, native bookmark navigation, and an executive Cyber Dark & Electric Cyan UI design system.</b>
 </p>
 
 [📊 Visual Showcase](#-visual-project-showcase--screenshot-analysis) •
@@ -63,7 +63,7 @@
 6. [Interactive UX & Multi-Tier Analytics Framework](#-interactive-ux--multi-tier-analytics-framework)
    - [Custom Report Page Tooltip (`Page 2 (Tooltip)`)](#1-custom-report-page-tooltip-page-2-tooltip)
    - [Bidirectional Student Profile Drillthrough (`Student Profile`)](#2-bidirectional-student-profile-drillthrough-student-profile)
-   - [Bookmark State Management: Academic View vs. Behavioral View](#3-bookmark-state-management-academic-view-vs-behavioral-view)
+   - [Native Bookmark Navigator: Academic View vs. Behavioral View](#3-native-bookmark-navigator-academic-view-vs-behavioral-view)
    - [Coordinated Multi-Dimensional Slicer Panel (`Group 1`)](#4-coordinated-multi-dimensional-slicer-panel-group-1)
 7. [Visual Project Showcase & Screenshot Analysis](#-visual-project-showcase--screenshot-analysis)
    - [Exhibit 1: Page 1 — Student Attendance System Dashboard (Main Page)](#exhibit-1-page-1--student-attendance-system-dashboard-main-page)
@@ -95,7 +95,7 @@ This project delivers a **360-Degree K-12 Student Intelligence Platform** develo
 
 ## 🛠️ Tools & Technologies Used
 
-* **[Microsoft Power BI Desktop (2026 Release)](https://powerbi.microsoft.com/desktop/)**: Primary business intelligence environment utilizing the Microsoft Fluent 2 design engine (`Fluent2-CY26SU10`), high-density card visuals, and custom page canvases.
+* **[Microsoft Power BI Desktop (2026 Release)](https://powerbi.microsoft.com/desktop/)**: Primary business intelligence environment utilizing an executive Cyber Dark design system (`#1E1E1E` obsidian matte background, glowing `#00D2FF` electric cyan accents), high-density KPI cards, radial gauges, and multi-page layout architecture.
 * **[VertiPaq In-Memory Tabular Engine](https://learn.microsoft.com/power-bi/guidance/star-schema)**: Highly optimized columnar database compression modeling 137,500 rows with sub-second visual cross-filtering.
 * **[DAX (Data Analysis Expressions)](https://learn.microsoft.com/dax/)**: Formulation of explicit aggregation measures (`AVERAGE`, `COUNTROWS`, `DISTINCTCOUNT`, `DIVIDE`, `CALCULATE`), filter context isolation, and row-level classification logic.
 * **[Power Query (M Language)](https://learn.microsoft.com/power-query/)**: Data ingestion, strict type casting (Integer, Text, Date), whitespace cleaning, and schema normalization across 4 CSV sources.
@@ -122,7 +122,7 @@ Dataset/
 | `Students - Students.csv.csv` | **`Students`** | 1 row per student | **`StudentID` (PK)** | 1,000 rows | Central student demographic dimension capturing `Name`, `Gender`, `Class` (1–12), and `Section` (A, B, C). |
 | `Attendance - Attendance.csv.csv` | **`Attendance`** | 1 row per student per day | `StudentID` (FK), `Date` | 100,000 rows | Captures daily student attendance records between June 2024 and June 2025 with categorical `Status` (`Present`, `Absent`) and absence `Reason`. |
 | `Behavior - Behavior.csv.csv` | **`Behavior`** | 1 row per recorded incident | `StudentID` (FK), `Date` | 6,500 rows | Disciplinary and commendation logs categorized by `BehaviorType` (`Disruptive`, `Late`, `Helpful`, `Participative`, `Absent without notice`) with qualitative `Notes`. |
-| `Scores - Scores.csv.csv` | **`Scores`** | 1 row per student exam subject | `StudentID` (FK), `Subject`, `Term` | 30,000 rows | Examination performance records across `Subject`, `ExamType` (`Mid Term`, `Final Exam`, `Unit Test`), numeric `Score` (0–100), `MaxScore` (100), and `Term` (Terms 1–3). |
+| `Scores - Scores.csv.csv` | **`Scores`** | 1 row per student exam subject | `StudentID` (FK), `Subject`, `Term` | 30,000 rows | Examination performance records across `Subject`, `ExamType` (`Mid Term`, `Final Exam`, `Unit Test`), numeric `Score` (0–100), `MaxScore` (100), `Term` (Terms 1–3), and calculated `% Score`. |
 | *(DAX Calculated)* | **`_Measures`** | Measure repository table | Disconnected | 1 row | Dedicated DAX container organizing all core KPIs and business measures away from raw entity fields. |
 
 ---
@@ -169,6 +169,7 @@ erDiagram
         int MaxScore "Maximum Obtainable Score"
         string Term "Term 1, Term 2, Term 3"
         string Performance_Category "Calculated Tier (High/Medium/Low)"
+        decimal Pct_Score "Calculated % Score (Score / MaxScore)"
     }
 
     _Measures {
@@ -212,7 +213,8 @@ Model/
     ├── 📏 Total Students
     ├── 📏 Attendance %
     ├── 📏 Average Score per Subject
-    └── 📏 Behavior Count
+    ├── 📏 Behavior Count
+    └── 📏 Sum of Score
 ```
 
 ---
@@ -273,6 +275,17 @@ COUNTROWS(Behavior)
 
 ---
 
+#### 2.5 Total Cumulative Score (`Sum of Score`)
+Aggregates total examination points accumulated across all assessments within the active filter context.
+
+```dax
+Sum of Score = 
+SUM(Scores[Score])
+```
+* **Context Behavior**: Institutional grand total evaluates to exactly **`1,496,023`** points across 30,000 evaluations. Powers the Radial Gauge visual in the Student Profile dossier (showing points accumulated toward target capacity) and the Tooltip card visual (rendered as `1M`).
+
+---
+
 ### 3. Row-Level Calculated Columns (Scores Classification)
 
 #### 3.1 Performance Tier Categorization (`Scores[Performance Category]`)
@@ -290,6 +303,18 @@ SWITCH(
 * **Analytical Application**:
   - Powers the bottom-left trend visual on the Main Page (`Count of Performance Category by Term`), tracking the volume of graded submissions (~10,035 in Term 2, ~9,990 in Term 1, ~9,975 in Term 3).
   - Categorizes student achievement in the Report Page Tooltip visual, displaying the average score across terms for each tier.
+
+#### 3.2 Assessment Score Percentage (`Scores[% Score]`)
+Normalizes raw exam points against the assessment's maximum attainable score (`MaxScore = 100`). Formatted as a Percentage (`0.0%`).
+
+```dax
+% Score = 
+DIVIDE(Scores[Score], Scores[MaxScore], 0)
+```
+* **Analytical Application**:
+  - Serves as the numerical baseline for the dynamic conditional formatting matrix on the Main Dashboard.
+  - Aggregated via `AVERAGE(Scores[% Score])` to display `Average of % Score` (overall institutional average: **`49.9%`**).
+  - Allows direct grade comparison across varying assessment structures.
 
 ---
 
@@ -314,26 +339,32 @@ The report integrates four sophisticated user-experience capabilities that eleva
 ```
 
 ### 1. Custom Report Page Tooltip (`Page 2 (Tooltip)`)
-- **Canvas Dimensions**: Engineered on a dedicated micro-canvas sized at **400 × 300 pixels** (`ActualSize` display mode, page type marked as `Tooltip`).
+- **Canvas Dimensions**: Engineered on a dedicated micro-canvas sized at **400 × 300 pixels** (`ActualSize` display mode, page type marked as `Tooltip`, styled with dark slate containers and glowing borders).
 - **Visual Composition**:
   - KPI Card 1: `[Average Score per Subject]` (`49.87`)
-  - KPI Card 2: `[Attendance %]` (`90.05%`)
+  - KPI Card 2: `[Sum of Score]` (`1M` / cumulative assessment volume)
   - Clustered Bar Chart: `Average of Score by Performance Category and Term`
 - **Dynamic Binding**: Bound natively to all 4 primary visual containers on the Main Page:
   1. `Count of Class and Average Score per Subject by Subject`
   2. `Behavior Count by BehaviorType`
-  3. `Count of Performance Category by Term`
+  3. `Average Score per Subject by Term`
   4. `Student Performance & Attendance Detail Table`
 - **User Impact**: Hovering over any subject bar or behavior slice instantly summons the student or cohort's academic performance breakdown without leaving the main canvas.
 
 ### 2. Bidirectional Student Profile Drillthrough (`Student Profile`)
 - **Drillthrough Filter Field**: Configured on `Students[StudentID]`.
-- **Navigation Flow**:
-  - Right-clicking any student row in the detailed matrix table (or clicking the top-right chevron button) navigates directly to the dedicated **Student Profile** page.
-  - Passes the selected `StudentID` (e.g., **`S0005`**) into the evaluation context.
-  - Automatically activates the header **Back Button** (`type: "Back"`), returning the user to their prior filtered state on the Main Page with a single click.
+- **Canvas Architecture**:
+  - Glowing Electric Cyan header: `"Drillthrough Page for Student Profile"`.
+  - Top-left Back Navigation button (`type: "Back"`) to return instantly to the prior filtered dashboard state.
+  - 3 Focused KPI Callouts: `Average Score per Subject` (e.g. `82.00`), `Attendance %` (e.g. `92.00%`), and `Behavior Count` (e.g. `5`).
+  - **Radial Gauge Visual**: Tracks cumulative student assessment points (`Sum of Score`, e.g. `328` out of `656` dial max).
+  - **Multi-Term Subject Bar Visual**: Breaks down subject averages across specific terms (`Geography` across Term 1 and Term 3).
+  - Exam Type Column Visual (`Unit Test`, `Final Exam`, `Mid Term`) and Disciplinary Donut breakdown.
 
-### 3. Bookmark State Management: Academic View vs. Behavioral View
+### 3. Native Bookmark Navigator: Academic View vs. Behavioral View
+- **Interactive UI Pills (`bookmarkNavigator`)**:
+  - Embedded directly above the slicer panel on the Main Page.
+  - Features two state buttons: **`Academic View`** and **`Behavioral View`** (highlighted in Electric Cyan when active).
 - **Bookmark 1: `Academic View`**:
   - Optimizes visual prominence for scholastic measures (`Scores`, `Average Score per Subject`, exam type distributions).
   - Aligns homeroom teachers toward instructional interventions and curriculum planning.
@@ -364,14 +395,18 @@ The report integrates four sophisticated user-experience capabilities that eleva
 </div>
 
 #### 🔍 Technical & Analytical Breakdown:
-* **Executive Title Banner & Action Header**:
-  * Clean Segoe (Bold) 40 pt header in Royal Navy (`#12239e`): `"Student Attendance System Dashboard"`.
+* **Cyber Dark Design System & Action Header**:
+  * Matte Obsidian (`#1E1E1E`) canvas background paired with dark slate visual containers and glowing Electric Cyan accents.
+  * Segoe (Bold) 40 pt title banner in Electric Cyan (`#00D2FF`): `"Student Attendance System Dashboard"`.
   * Top-right navigation action button (`x: 1824, y: 0`) equipped with a Right Arrow icon leading to the student profile dossier.
+* **Native Bookmark Navigator (`bookmarkNavigator`)**:
+  * Positioned prominently above the slicer panel.
+  * Features two interactive state pills: **`Academic View`** and **`Behavioral View`** (highlighted in vivid cyan when active), enabling rapid perspective switching between scholastic grading and behavioral compliance.
 * **4-Card Executive KPI Banner**:
   * **Total Students (`1K`)**: Evaluates `[Total Students]`, establishing total school capacity.
   * **Average Score per Subject (`49.87`)**: Evaluates `[Average Score per Subject]`, establishing the global academic benchmark.
   * **Attendance % (`90.05%`)**: Evaluates `[Attendance %]`, reflecting consistent overall student presence.
-  * **Behavior Count (`7K`)**: Evaluates `[Behavior Count]`, summarizing all recorded behavioral interactions.
+  * **Behavior Count (`7K`)**: Evaluates `[Behavior Count]`, summarizing all 6,500 recorded behavioral interactions.
 * **Count of Class and Average Score per Subject by Subject**:
   * Dual-measure horizontal clustered bar chart comparing class representation against average subject marks.
   * **Subject Performance Consistency**: Average marks across all 5 disciplines remain remarkably balanced:
@@ -381,18 +416,30 @@ The report integrates four sophisticated user-experience capabilities that eleva
     - **English**: `50.0`
     - **Geography**: `49.0`
 * **Behavior Count by BehaviorType (Donut Chart)**:
-  * Proportional distribution across 6,500 behavior events:
+  * Proportional distribution across 6,500 behavior events in high-contrast neon accents:
     - **Disruptive**: `20.51%` (1,333 incidents)
     - **Late**: `20.03%` (1,302 incidents)
     - **Helpful**: `19.98%` (1,299 incidents)
     - **Participative**: `19.91%` (1,294 incidents)
     - **Absent without notice**: `19.57%` (1,272 incidents)
-  * Positive behaviors (`39.89%`) roughly balance concerning conduct (`60.11%`), underscoring the need for targeted positive behavioral reinforcement.
-* **Count of Performance Category by Term (Line Chart)**:
-  * Temporal trend tracking assessment volume across terms: **Term 2** leads with 10,035 evaluations, followed by **Term 1** (9,990) and **Term 3** (9,975).
-* **Detailed Student Performance & Attendance Matrix (`tableEx`)**:
-  * Micro-level tabular audit showing student ID, Section, Subject, Term, Exam Type, Average Score, Behavior Count, Attendance %, and Attendance Status.
-  * Subtotal verification row dynamically validating institutional averages (`49.87` score, `90.05%` attendance).
+  * Positive behaviors (`39.89%`) balance disciplinary flags (`60.11%`), underscoring the need for targeted positive reinforcement.
+* **Average Score per Subject by Term (Line Chart)**:
+  * Longitudinal academic trend tracking `_Measures[Average Score per Subject]` across `Term 1`, `Term 2`, and `Term 3`.
+  * Visualizes the school-wide grading trajectory: an initial baseline of **`49.7`** in Term 1, a minor mid-year dip in Term 2 to **`49.6`**, followed by an academic rebound in Term 3 surging past **`50.1`**.
+* **Detailed Student Performance & Attendance Table (`tableEx`)**:
+  * Micro-level tabular audit cross-referencing:
+    - **`StudentID`**: Student identifier (e.g., `S0001`, `S0002`, `S0003`).
+    - **`Name`**: Full student name (e.g., `Lara Simmons`, `Brenda Peters`, `Carlos Carlson`).
+    - **`Subject`**: Academic discipline evaluated (`English`, `Geography`, `History`, `Math`, `Science`).
+    - **`Sum of Score`**: Total cumulative marks scored in the subject (e.g., `391`, `608`, `506`).
+    - **`Average of % Score`**: Mean normalized assessment score (`0.0%` to `100.0%`), enhanced with dynamic KPI background rules.
+  * **Dynamic Conditional Formatting Architecture**:
+    - **🟢 High Performance Highlight (`#46F41F` - Vibrant Lime Green)**: Automatically triggered when `Average of % Score >= 80.0%` (e.g., high-achieving distinctions).
+    - **🔴 Critical Academic Alert (`#F00C0C` - High-Alert Crimson Red)**: Triggered when `Average of % Score <= 40.0%` (e.g., `S0001` Math at **`32.6%`**, `S0002` History at **`39.4%`**).
+    - **⚪ On-Track / Neutral**: Scores between `40.1%` and `79.9%` remain neutral dark slate to maintain executive focus.
+  * **Subtotal Summary Row Validation**:
+    - Bottom totals row dynamically computes institutional grand totals:
+      $$\mathbf{Total} \quad \Big| \quad \text{Sum of Score}: \mathbf{1,496,023} \quad \Big| \quad \text{Average of \% Score}: \mathbf{49.9\%}$$
 
 ---
 
@@ -405,23 +452,27 @@ The report integrates four sophisticated user-experience capabilities that eleva
 </div>
 
 #### 🔍 Technical & Analytical Breakdown:
-* **Contextual Drillthrough Isolation (Student `S0005`)**:
-  * Activating drillthrough on Student `S0005` instantly filters all fact tables through the `StudentID` join.
-  * Top-left Back Navigation button (`x: 0, y: 0`) allows immediate return to the institutional overview.
-* **Personalized Student KPI Cards**:
-  * **Total Students (`1`)**: Confirms single-student context isolation.
-  * **Average Score per Subject (`49.40`)**: Student `S0005` performs slightly below the school benchmark (`49.87`).
-  * **Attendance % (`89.00%`)**: Indicates an 89% presence rate (89 days present vs. 11 days absent), placing this student just below the 90% institutional attendance threshold.
-  * **Behavior Count (`4`)**: 4 logged behavioral incidents during the school year.
-* **Subject Strengths vs. Weaknesses**:
-  * **Geography (`63.80`)** and **Math (`63.14`)** represent key academic strengths.
-  * **Science (`46.00`)**, **English (`44.33`)**, and **History (`31.43`)** indicate substantial remediation needs, with History requiring immediate tutoring.
-* **Behavior Breakdown (Donut Visual)**:
-  * 4 recorded events: **Participative (2, 50.0%)**, **Absent without notice (1, 25.0%)**, and **Helpful (1, 25.0%)**. Confirms that the student shows strong positive potential despite unexcused absences.
-* **Exam Distribution by Exam Type**:
-  * Clustered column chart plotting 30 total assessments: **Mid Term (12)**, **Final Exam (9)**, and **Unit Test (9)**.
-* **Term Performance Trajectory**:
-  * Line chart illustrates assessment concentration: **Term 1 (14 tests)**, **Term 3 (9 tests)**, and **Term 2 (7 tests)**.
+* **Interactive Header & Navigation**:
+  * Glowing Electric Cyan header: `"Drillthrough Page for Student Profile"`.
+  * Top-left Back Navigation button (`type: "Back"`) enabling instantaneous return to the primary dashboard.
+* **Focused 3-Card KPI Banner**:
+  * **Average Score per Subject (`82.00`)**: Reflects high-distinction achievement in the filtered subject profile.
+  * **Attendance % (`92.00%`)**: Strong 92% attendance presence (exceeding the 90% institutional benchmark).
+  * **Behavior Count (`5`)**: 5 recorded behavioral interactions logged across the academic year.
+* **Average Score per Subject by Subject and Term (Clustered Bar)**:
+  * Dissects individual subject marks across terms (e.g., `Geography` evaluated across Term 1 at **`80.0`** and Term 3 surging to **`84.0`**).
+* **Behavior Count by BehaviorType (Donut Chart)**:
+  * Granular incident audit for 5 events:
+    - **Absent without notice**: `2` (`40%`)
+    - **Disruptive**: `1` (`20%`)
+    - **Helpful**: `1` (`20%`)
+    - **Late**: `1` (`20%`)
+* **Radial Gauge Visual — Cumulative Assessment Points (`Sum of Score`)**:
+  * Circular gauge charting `Sum(Scores[Score])` achieved: **`328`** points scored out of a maximum capacity dial of **`656`** points (exact 50% midpoint target).
+* **Count of Subject by ExamType (Clustered Column)**:
+  * Categorizes assessment sittings: **Unit Test (2)**, **Final Exam (1)**, and **Mid Term (1)** (4 total exams).
+* **Count of Performance Category by Term (Line Chart)**:
+  * Visualizes longitudinal evaluation frequency: **Term 3** (3 assessments) and **Term 1** (1 assessment).
 
 ---
 
@@ -435,12 +486,13 @@ The report integrates four sophisticated user-experience capabilities that eleva
 
 #### 🔍 Technical & Analytical Breakdown:
 * **Compact Analytical Micro-Canvas**:
-  * Custom 400 × 300 canvas rendered seamlessly upon mouse hover across visuals on the Main Page.
-* **Instant KPI Verification**:
-  * Instantly computes `Average Score per Subject` (**`49.87`**) and `Attendance %` (**`90.05%`**) for the hovered element.
+  * Custom 400 × 300 dark slate canvas rendered instantly upon mouse hover across all primary dashboard visuals.
+* **Dual High-Density Metric Callouts**:
+  * **Average Score per Subject (`49.87`)**: Real-time context average.
+  * **Sum of Score (`1M` / `1,496,023`)**: Total assessment point volume generated in the hovered partition.
 * **Performance Tier Dissection**:
-  * Clustered bar visual plotting `Average of Score` by `Performance Category` across `Term 1`, `Term 2`, and `Term 3`.
-  * Empowers educators to see whether a class or subject's "Medium" tier scores are trending upward or decaying as the academic school year progresses.
+  * Clustered bar visual plotting `Average of Score` by `Performance Category` (`Medium`) across `Term 1` (Blue), `Term 2` (Purple), and `Term 3` (Cyan).
+  * Instantly surfaces whether cohort performance within a tier is accelerating or decaying across terms.
 
 ---
 
@@ -466,21 +518,21 @@ The report integrates four sophisticated user-experience capabilities that eleva
 
 ## 🎨 UI/UX Design System & Canvas Standards
 
-The report strictly complies with modern educational dashboard usability guidelines, utilizing Microsoft's **Fluent 2** design system:
+The report strictly complies with modern educational dashboard usability guidelines, utilizing an executive **Cyber Dark & Electric Cyan** design system:
 
 * **Canvas Geometry**:
   * **Main Page & Student Profile**: 16:9 Widescreen Full HD (**1920 × 1080 px**), `FitToPage` display mode.
   * **Tooltip Page**: Micro-canvas (**400 × 300 px**), `ActualSize` display mode.
 * **Palette & Color Harmonization**:
-  * **Primary Header & Brand**: Royal Navy (`#12239e`) for executive titles and key accents.
-  * **Visual Series**: Fluent Vibrant Blue (`#0078D4`), Dark Cobalt, Magenta (`#D13438`), Coral Orange, and Bright Cyan.
-  * **Canvas Background**: Pristine Clean White / Neutral Soft Grey (`#F8F9FA`).
-  * **Card Containers**: White surface cards with soft 1 pt borders and standard shadow depth.
+  * **Primary Header & Brand**: Electric Cyan (`#00D2FF` / `#4DEEEA`) for glowing executive titles and active UI states.
+  * **Canvas Background**: Deep Obsidian Matte Charcoal (`#1E1E1E` / `#181818`) minimizing eye strain during prolonged analysis.
+  * **Visual Series**: Neon Cobalt Blue, Electric Cyan, Vivid Magenta (`#D13438`), Coral Orange, Lime Green (`#46F41F`), and High-Alert Red (`#F00C0C`).
+  * **Card Containers**: Dark Slate cards (`#252526` / `#2D2D2D`) with subtle glowing 1 pt borders and soft corner radiuses.
 * **Typography Standards**:
-  * **Report Header**: Segoe (Bold), 40 pt, `#12239e`.
-  * **Card Callout Values**: Segoe UI (Semibold / Bold), 28 pt – 32 pt.
-  * **Category Labels**: Segoe UI, 10 pt – 12 pt, Neutral Charcoal (`#4A4A4A`).
-  * **Visual Titles & Tables**: Segoe UI (Semibold), 11 pt – 13 pt.
+  * **Report Header**: Segoe (Bold), 40 pt, `#00D2FF` with dark rounded pill backdrop.
+  * **Card Callout Values**: Segoe UI (Semibold / Bold), 28 pt – 32 pt, Crisp White (`#FFFFFF`).
+  * **Category Labels**: Segoe UI, 10 pt – 12 pt, Slate Grey (`#A0A0A0`).
+  * **Visual Titles & Tables**: Segoe UI (Semibold), 11 pt – 13 pt (Table text enhanced at 17 pt for rapid scanning).
 
 ---
 
@@ -496,13 +548,17 @@ The report strictly complies with modern educational dashboard usability guideli
 | **DAX Measures** | `Attendance %` | Formulated safe ratio of `Present` status over total days (`90.05%`). | **Completed** |
 | **DAX Measures** | `Average Score per Subject` | Computed arithmetic mean score (`49.87`) across 30,000 exam records. | **Completed** |
 | **DAX Measures** | `Behavior Count` | Built `COUNTROWS(Behavior)` summarizing 6,500 conduct logs. | **Completed** |
+| **DAX Measures** | `Sum of Score` | Evaluated grand total points `SUM(Scores[Score]) = 1,496,023` across all assessments. | **Completed** |
 | **Calculated Column** | `Performance Category` | Created row-level classification tier in `Scores` table (`High`, `Medium`, `Low`). | **Completed** |
+| **Calculated Column** | `% Score` | Formulated score normalization ratio `DIVIDE(Scores[Score], Scores[MaxScore], 0)`. | **Completed** |
 | **UI Components** | Executive KPI Banner | Built 4 top-tier metric cards displaying Total Students, Avg Score, Attendance %, and Behavior Count. | **Completed** |
 | **UI Components** | Multi-Dimensional Slicers | Grouped `Class` (Dropdown), `Subject` (Dropdown), `Section` (Tiles), and `Term` (Tiles) inside `Group 1`. | **Completed** |
+| **UI Components** | Bookmark Navigator | Integrated native pill-switcher component on canvas toggling Academic vs. Behavioral states. | **Completed** |
 | **Core Visuals** | Clustered Bar Visual | Plotted Subject against Class Count and Average Score per Subject. | **Completed** |
 | **Core Visuals** | Donut Chart Visual | Built 5-part behavioral distribution visual with total incident callout in center. | **Completed** |
-| **Core Visuals** | Line Chart Visual | Implemented term-over-term performance category volume progression. | **Completed** |
-| **Core Visuals** | Detailed Matrix Table | Created detailed student records matrix with summary totals row. | **Completed** |
+| **Core Visuals** | Line Chart Visual | Implemented term-over-term `Average Score per Subject` trajectory line. | **Completed** |
+| **Core Visuals** | Radial Gauge Visual | Built student score gauge visual tracking points achieved (`328`) against capacity dial (`656`). | **Completed** |
+| **Core Visuals** | Detailed Matrix Table | Created student audit table with conditional formatting rules (Green ≥ 80%, Red ≤ 40%) and institutional subtotal summary. | **Completed** |
 | **Interactivity** | Custom Tooltip Page | Designed 400×300 micro-canvas tooltip bound to all 4 primary visual containers. | **Completed** |
 | **Interactivity** | Drillthrough Dossier | Configured bidirectional drillthrough on `StudentID` with automated Back navigation button. | **Completed** |
 | **Interactivity** | Bookmarking States | Configured `Academic View` and `Behavioral View` bookmark toggles for role-based reporting. | **Completed** |
@@ -544,7 +600,7 @@ d:\RD\weekly task\Power BI\Final Exam/
 * **Curriculum / Context**: Power BI Weekly Practical Assessment — Final Exam
 * **Author / Developer**: Antigravity Pair Programming Engineering Team
 * **Data Engine**: Microsoft Analysis Services Tabular / Power BI VertiPaq
-* **Report Theme**: Fluent 2 Executive Academic Design System
+* **Report Theme**: Cyber Dark & Electric Cyan Executive Academic Design System
 * **License**: MIT Open Source License
 
 ---
